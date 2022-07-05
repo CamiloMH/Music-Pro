@@ -1,5 +1,6 @@
 const express = require('express')
-const { instrumentos, instrumento, crearInstrumento } = require('../controllers/instrumento')
+const { instrumentos, instrumento, crearInstrumento, actualizarInstrumento, borrarInstrumento } = require('../controllers/instrumento')
+const { idInstrumento, validacionCrearInstrumento, validacionActualizarInstrumento } = require('../validations/instrumentos')
 const router = express.Router()
 
 /**
@@ -10,21 +11,21 @@ router.get('/', instrumentos)
 /**
  * @api {get} /instrumentos/:idInstrumento Obtener un instrumento
  */
-router.get('/:idInstrumento', instrumento)
+router.get('/:idInstrumento', idInstrumento, instrumento)
 
 /**
  * @api {post} /instrumentos/ Crear un instrumento
  */
-router.post('/', crearInstrumento)
+router.post('/', validacionCrearInstrumento, crearInstrumento)
 
 /**
  * @api {put} /instrumentos/:idInstrumento Actualizar un instrumento
 */
-router.put('/:idInstrumento',)
+router.put('/:idInstrumento', idInstrumento, validacionActualizarInstrumento, actualizarInstrumento)
 
 /**
  * @api {delete} /instrumentos/:idInstrumento Eliminar un instrumento
 */
-router.delete('/:idInstrumento',)
+router.delete('/:idInstrumento', idInstrumento, borrarInstrumento)
 
 module.exports = router
