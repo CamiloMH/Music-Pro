@@ -17,14 +17,14 @@ beforeEach(async () => {
   await Familia.create(familia)
 
   // Insertar tipos de instrumentos
-  tiposInstrumentos.forEach(async tipoInstrumento => {
+  for (const tipoInstrumento of tiposInstrumentos) {
     await TipoInstrumento.create(tipoInstrumento)
-  })
+  }
 
   // Insertar instrumentos
-  instrumentos.forEach(async instrumento => {
+  for (const instrumento of instrumentos) {
     await Instrumentos.create(instrumento)
-  })
+  }
 })
 
 // jest.setTimeout(30000)
