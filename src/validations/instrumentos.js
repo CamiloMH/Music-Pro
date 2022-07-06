@@ -24,11 +24,11 @@ const validacionCrearInstrumento = [
     .withMessage('La marca debe tener entre 1 y 50 caracteres'),
   check('modelo')
     .notEmpty()
-    .withMessage('La marca es requerida')
+    .withMessage('El modelo no puede ser vacio')
     .exists()
-    .withMessage('La marca es requerida')
+    .withMessage('El modelo es requerido')
     .isLength({ min: 1, max: 50 })
-    .withMessage('La marca debe tener entre 1 y 50 caracteres')
+    .withMessage('El modelo debe tener entre 1 y 50 caracteres')
     .custom((value, { req }) => validarModeloExiste(value)),
   check('precio')
     .notEmpty()
@@ -57,11 +57,11 @@ const validacionActualizarInstrumento = [
     .withMessage('La marca debe tener entre 1 y 50 caracteres'),
   check('modelo')
     .notEmpty()
-    .withMessage('La marca es requerida')
+    .withMessage('El modelo no puede ser vacio')
     .exists()
-    .withMessage('La marca es requerida')
+    .withMessage('El modelo es requerido')
     .isLength({ min: 1, max: 50 })
-    .withMessage('La marca debe tener entre 1 y 50 caracteres')
+    .withMessage('El modelo debe tener entre 1 y 50 caracteres')
     .custom((value, { req }) => validarModeloExiste(value, req.params.idInstrumento)),
   check('precio')
     .notEmpty()

@@ -34,6 +34,16 @@ const buscarPorTipoInstrumento = async (idTipoInstrumento) => {
 }
 
 const validarModeloExiste = async (modelo, idInstrumento) => {
+  if (!idInstrumento) {
+    const instrumento = await Instrumentos.findOne({
+      where: {
+        modelo
+      }
+    })
+
+    if (instrumento) throw new Error('El modelo ya existe')
+  }
+
   const buscarInstrumentoPorIdInstrumento = await Instrumentos.findOne({
     where: {
       idInstrumento: {
