@@ -1,6 +1,6 @@
 const Instrumentos = require('../models/instrumentos')
 const TipoInstrumento = require('../models/tipoInstrumento')
-const Familia = require('../models/familia')
+const { Familia } = require('../models/index')
 
 const instrumentos = async (req, res) => {
   try {
