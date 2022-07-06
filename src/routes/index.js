@@ -2,18 +2,23 @@ const express = require('express')
 const router = express.Router()
 const fs = require('fs')
 
-
 const PATH_ROUTES = __dirname
 
 const removeExtension = (fileName) => {
-    return fileName.split('.').shift()
+  return fileName.split('.').shift()
 }
 
-const a = fs.readdirSync(PATH_ROUTES).filter((file) => {
-    const name = removeExtension(file)
+fs.readdirSync(PATH_ROUTES).filter((file) => {
+  const name = removeExtension(file)
   if (name !== 'index') {
-      router.use(`/${name}`, require(`./${file}`))
+    router.use(`/${name}`, require(`./${file}`))
   }
+  return false
+})
+
+// Manejador general de errores 404 (al final del listado de rutas de los endpoints)
+router.get('*', (req, res) => {
+  res.status(404).send(process.env.MSG_RND)
 })
 
 module.exports = router

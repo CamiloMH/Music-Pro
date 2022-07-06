@@ -17,8 +17,4 @@ app.use(express.urlencoded({ extended: false }))
 // Rutas Endpoints
 app.use('/api', require('./routes'))
 
-app.use(function (req, res) {
-  res.status(404).send(process.env.MSG_RND)
-})
-
 module.exports = app
