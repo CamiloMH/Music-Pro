@@ -60,8 +60,8 @@ const crearInstrumento = async (req, res) => {
       createdDate: new Date()
     }
 
-    const nuevoInstrumento = await Instrumentos.create(instrumento)
-    res.status(201).json({ message: 'Instrumento creado', instrumento: nuevoInstrumento })
+    await Instrumentos.create(instrumento)
+    res.status(201).json({ message: 'Instrumento creado' })
   } catch (error) {
     console.log(error)
   }
@@ -70,11 +70,13 @@ const crearInstrumento = async (req, res) => {
 const actualizarInstrumento = async (req, res) => {
   try {
     const { idInstrumento } = req.params
-    const { marca, precio } = req.body
+    const { marca, precio, modelo, idTipoInstrumento } = req.body
 
     const instrumento = {
       marca,
       precio,
+      modelo,
+      idTipoInstrumento,
       updatedDate: new Date()
     }
 
@@ -92,7 +94,7 @@ const actualizarInstrumento = async (req, res) => {
 
 const borrarInstrumento = async (req, res) => {
   try {
-    const { idInstrumento } = req.params
+    const { idInstrumento = null } = req.params
 
     await Instrumentos.destroy({
       where: {
