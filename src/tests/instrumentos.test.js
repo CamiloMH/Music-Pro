@@ -84,17 +84,17 @@ describe('POST:', () => {
     expect(response.body.length).toBe(3)
   })
 
-  test('deberia llegar un codigo 403', async () => {
+  test('deberia llegar un codigo 400', async () => {
     await api.post('/api/instrumentos')
       .send(instrumentos[0])
-      .expect(403)
+      .expect(400)
   })
 
   test('deberia llegar un error de que el modelo ya existe', async () => {
     const response = await api.post('/api/instrumentos')
       .send(instrumentos[0])
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('El modelo ya existe')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('El modelo ya existe')
   })
 
   test('deberia llegar un error de que el modelo no puede ser vacio', async () => {
@@ -105,19 +105,19 @@ describe('POST:', () => {
         precio: 1000000,
         idTipoInstrumento: 1
       })
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('El modelo no puede ser vacio')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('El modelo no puede ser vacio')
   })
 
-  test('deberia llegar un error de que el tipo de instrumento es requerido', async () => {
+  test('deberia llegar un error de que el tipo de instrumento no puede estar vacio', async () => {
     const response = await api.post('/api/instrumentos')
       .send({
         marca: 'Ibanez',
         modelo: 'modelo',
         precio: 1000000
       })
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('El idTipoInstrumento es requerido')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('El idTipoInstrumento no puede estar vacio')
   })
 
   test('deberia llegar un error de que el precio debe ser un número', async () => {
@@ -128,8 +128,8 @@ describe('POST:', () => {
         precio: 'precio',
         idTipoInstrumento: 1
       })
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('El precio debe ser un número')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('El precio debe ser un número')
   })
 })
 
@@ -151,8 +151,8 @@ describe('PUT:', () => {
   test('deberia llegar un error de Instrumento no encontrado', async () => {
     const response = await api.put('/api/instrumentos/3')
       .send(instrumentos[0])
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('Instrumento no encontrado')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('Instrumento no encontrado')
   })
 })
 
@@ -171,8 +171,8 @@ describe('DELETE:', () => {
 
   test('deberia llegar un error de Instrumento no encontrado', async () => {
     const response = await api.delete('/api/instrumentos/3')
-      .expect(403)
-    expect(response.body.errors[0].msg).toBe('Instrumento no encontrado')
+      .expect(400)
+    expect(response.body.Error[0]).toBe('Instrumento no encontrado')
   })
 })
 
