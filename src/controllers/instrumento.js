@@ -4,6 +4,9 @@ const { Familia } = require('../models/index')
 const { handleError } = require('../utils/handleError')
 
 const instrumentos = async (req, res) => {
+  let { limit = 20, pagination = 1 } = req.query
+  limit = parseInt(limit) || 20
+  pagination = parseInt(pagination) || 1
   try {
     const instrumentos = await Instrumentos.findAll({
       include: {
@@ -17,7 +20,9 @@ const instrumentos = async (req, res) => {
             exclude: ['createdDate', 'updatedDate', 'idFamilia']
           }
         }
-      }
+      },
+      limit,
+      offset: (pagination - 1) * limit
     })
 
     res.status(200).json(instrumentos)
