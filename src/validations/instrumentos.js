@@ -77,6 +77,12 @@ const validacionActualizarInstrumento = [
     .exists()
     .withMessage('El precio es requerido')
     .custom((value, { req }) => validarPrecio(value)),
+  check('idTipoInstrumento')
+    .notEmpty()
+    .withMessage('El idTipoInstrumento no puede estar vacio')
+    .exists()
+    .withMessage('El idTipoInstrumento es requerido')
+    .custom((value, { req }) => buscarPorTipoInstrumento(value)),
   (req, res, next) => {
     return validateResults(req, res, next)
   }
