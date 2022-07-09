@@ -1,6 +1,7 @@
 const Instrumentos = require('../models/instrumentos')
 const TipoInstrumento = require('../models/tipoInstrumento')
 const { Familia } = require('../models/index')
+const { handleError } = require('../utils/handleError')
 
 const instrumentos = async (req, res) => {
   try {
@@ -21,7 +22,7 @@ const instrumentos = async (req, res) => {
 
     res.status(200).json(instrumentos)
   } catch (error) {
-    console.log(error)
+    handleError(error, 500, res)
   }
 }
 
@@ -45,7 +46,7 @@ const instrumento = async (req, res) => {
 
     res.status(200).json(instrumento)
   } catch (error) {
-    console.log(error)
+    handleError(error, 500, res)
   }
 }
 
@@ -63,7 +64,7 @@ const crearInstrumento = async (req, res) => {
     await Instrumentos.create(instrumento)
     res.status(201).json({ message: 'Instrumento creado' })
   } catch (error) {
-    console.log(error)
+    handleError(error, 500, res)
   }
 }
 
@@ -88,7 +89,7 @@ const actualizarInstrumento = async (req, res) => {
 
     res.status(200).json({ message: 'Instrumento actualizado' })
   } catch (error) {
-    console.log(error)
+    handleError(error, 500, res)
   }
 }
 
@@ -104,7 +105,7 @@ const borrarInstrumento = async (req, res) => {
 
     res.status(200).json({ message: 'Instrumento eliminado' })
   } catch (error) {
-    console.log(error)
+    handleError(error, 500, res)
   }
 }
 
